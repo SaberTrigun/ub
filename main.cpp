@@ -85,13 +85,22 @@ glBindBuffer(GL_ARRAY_BUFFER, 0);
 glBindVertexArray(0);
 
 
-unsigned int texture;
-glGenTextures(1, &texture);
-glBindTexture(GL_TEXTURE, texture);
+unsigned int texBox;
+glGenTextures(1, &texBox);
+glBindTexture(GL_TEXTURE_2D, texBox);
 
+Texture box("textures/box.jpg", 2550, 180,0, false);
 
+unsigned int texSmile;
+glGenTextures(1, &texSmile);
+glBindTexture(GL_TEXTURE_2D, texSmile);
 
-Texture tex("textures/box.jpg", 2550, 180,0, false);
+Texture smile("textures/smile.png", 2550, 180,0, true);
+
+shaderProg.useProgram();
+shaderProg.setInt("texBox", 0);
+shaderProg.setInt("texSmile", 1);
+
 
 while(!glfwWindowShouldClose(window))
 {
@@ -101,7 +110,10 @@ while(!glfwWindowShouldClose(window))
 
     shaderProg.useProgram();
 
-    glBindTexture(GL_TEXTURE, texture);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texBox);
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, texSmile);
 
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
