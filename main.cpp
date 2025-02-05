@@ -16,6 +16,22 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 { glViewport(0, 0, width, height); }
 
 
+void transScale(ShaderProgram& shaderProg){
+    glm::mat4 trans = glm::mat4(1.0f);
+    trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+    trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
+    shaderProg.setMat4("transform", trans);
+
+}
+
+void transRotate(ShaderProgram& shaderProg){
+    glm::mat4 trans = glm::mat4(1.0f);
+    trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
+    trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+    shaderProg.setMat4("transform", trans);
+}
+
+
 int main(){
 glfwInit();
 glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -39,8 +55,8 @@ if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
 }
 
 
-Shader vShader(std::string("shaders/four/vxShader.src"), GL_VERTEX_SHADER);
-Shader fShader(std::string("shaders/four/fgShader.src"), GL_FRAGMENT_SHADER);
+Shader vShader(std::string("shaders/six/vxShader.src"), GL_VERTEX_SHADER);
+Shader fShader(std::string("shaders/six/fgShader.src"), GL_FRAGMENT_SHADER);
 ShaderProgram shaderProg(vShader, fShader);
 vShader.deleteShader();
 fShader.deleteShader();
@@ -107,6 +123,7 @@ while(!glfwWindowShouldClose(window))
     glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
+    transRotate(shaderProg);
 
     shaderProg.useProgram();
 
