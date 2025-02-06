@@ -9,8 +9,8 @@
 
 using namespace UB;
 
-int gHeight_scr = 1400;
-int gWidth_scr  = 800;
+int gHeightScr = 1400;
+int gWidthScr  = 800;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 { glViewport(0, 0, width, height); }
@@ -38,7 +38,7 @@ glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 
-GLFWwindow* window = glfwCreateWindow(gHeight_scr, gWidth_scr, "OpenGL Window", NULL, NULL);
+GLFWwindow* window = glfwCreateWindow(gHeightScr, gWidthScr, "OpenGL Window", NULL, NULL);
 if(window == NULL){
     std::cout << "Failed to create GLFW Window" << std::endl;
     glfwTerminate();
@@ -55,8 +55,8 @@ if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
 }
 
 
-Shader vShader(std::string("shaders/six/vxShader.src"), GL_VERTEX_SHADER);
-Shader fShader(std::string("shaders/six/fgShader.src"), GL_FRAGMENT_SHADER);
+Shader vShader(std::string("shaders/seven/vxShader.src"), GL_VERTEX_SHADER);
+Shader fShader(std::string("shaders/seven/fgShader.src"), GL_FRAGMENT_SHADER);
 ShaderProgram shaderProg(vShader, fShader);
 vShader.deleteShader();
 fShader.deleteShader();
@@ -123,7 +123,20 @@ while(!glfwWindowShouldClose(window))
     glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    transRotate(shaderProg);
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
+    glm::mat4 view = glm::mat4(1.0f);
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+
+    glm::mat4 projection;
+    projection = glm::perspective(glm::radians(45.0f), 1400.0f / 800.0f, 0.1f, 100.0f);
+
+    shaderProg.setMat4("model", model);
+    shaderProg.setMat4("view", view);
+    shaderProg.setMat4("projection", projection);
+
 
     shaderProg.useProgram();
 
