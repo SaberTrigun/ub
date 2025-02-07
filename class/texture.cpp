@@ -25,9 +25,9 @@ Texture::Texture(const char* const pathToFile, int width, int height, int nrChan
 
 void Texture::loadTextureFromFile(const char* const pathToFile, int nrChannels, bool alpha)
 {
-    data = stbi_load(pathToFile, &width, &height, &nrChannels, 0);
-
     stbi_set_flip_vertically_on_load(true);
+
+    data = stbi_load(pathToFile, &width, &height, &nrChannels, 0);
 
     if (data)
     {
