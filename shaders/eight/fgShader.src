@@ -1,0 +1,12 @@
+#version 330 core
+
+out vec4 FragColor;
+in vec2 tex;
+
+uniform sampler2D texBox;
+uniform sampler2D texSmile;
+
+void main()
+{
+    FragColor = mix(texture(texBox, tex), texture(texSmile, tex), 0.3);
+}
