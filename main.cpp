@@ -12,8 +12,29 @@ using namespace UB;
 int gHeightScr = 1400;
 int gWidthScr  = 800;
 
+glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 { glViewport(0, 0, width, height); }
+
+
+void input(GLFWwindow* window){
+    const float cameraSpeed = 0.05f;
+    if(glfwGetKey(window, GLFW_KEY_W)){
+        cameraPos += cameraSpeed * cameraFront;
+    }
+    if(glfwGetKey(window, GLFW_KEY_S)){
+        cameraPos -= cameraSpeed * cameraFront;
+    }
+    if(glfwGetKey(window, GLFW_KEY_A)){
+        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    }
+    if(glfwGetKey(window, GLFW_KEY_D)){
+        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    }
+}
 
 
 void transScale(ShaderProgram& shaderProg){
@@ -55,8 +76,8 @@ if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
 }
 
 
-Shader vShader(std::string("shaders/seven/vxShader.src"), GL_VERTEX_SHADER);
-Shader fShader(std::string("shaders/seven/fgShader.src"), GL_FRAGMENT_SHADER);
+Shader vShader(std::string("shaders/eight/vxShader.src"), GL_VERTEX_SHADER);
+Shader fShader(std::string("shaders/eight/fgShader.src"), GL_FRAGMENT_SHADER);
 ShaderProgram shaderProg(vShader, fShader);
 vShader.deleteShader();
 fShader.deleteShader();
@@ -173,20 +194,30 @@ glm::vec3 cubePositions[] = {
 };
 
 
+glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1400.0f / 800.0f, 0.1f, 100.0f);
+shaderProg.setMat4("projection", projection);
+
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
+
 while(!glfwWindowShouldClose(window))
 {
     glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    float currentFrame = static_cast<float>(glfwGetTime());
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
+
+    input(window);
+
 
     glm::mat4 view = glm::mat4(1.0f);
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    //view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
-    glm::mat4 projection;
-    projection = glm::perspective(glm::radians(45.0f), 1400.0f / 800.0f, 0.1f, 100.0f);
 
     shaderProg.setMat4("view", view);
-    shaderProg.setMat4("projection", projection);
 
     shaderProg.useProgram();
 
