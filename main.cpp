@@ -1,6 +1,6 @@
 #include <iostream>
 #include "include/glad/glad.h"
-#include "include/GLFW/glfw3.h"
+//#include "include/GLFW/glfw3.h"
 #include "include/glm/glm/matrix.hpp"
 #include "include/glm/glm/gtc/matrix_transform.hpp"
 #include "class/shader.h"
@@ -36,6 +36,7 @@ void input(GLFWwindow* window){
         cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
     }
 }
+
 
 
 void transScale(ShaderProgram& shaderProg){
@@ -212,12 +213,13 @@ while(!glfwWindowShouldClose(window))
 
     input(window);
 
+
     // GameAcgor* globalCam = new Camera();
     UB::InputHandler inputHandler;
     UB::Camera globalCam(glm::vec3(0.0f, 0.0f, 3.0f));
     UB::ICommand* command = inputHandler.handleInput();
     if(command){
-        command->execute(globalCam);
+        command->execute(globalCam, deltaTime);
     }
 
     glm::mat4 view = glm::mat4(1.0f);

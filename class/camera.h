@@ -20,7 +20,7 @@ public:
 
     void setPosition(glm::vec3& position) override;
 
-    void moving() override;
+    void moveUp(float deltaTime) override;
 
     glm::vec3 getDirection() const;
 

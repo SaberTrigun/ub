@@ -14,9 +14,9 @@ namespace UB
 class GameActor
 {
 public:
-	virtual void moving() = 0;
-	 virtual glm::vec3  getPosition() const = 0;
-	 virtual void setPosition(glm::vec3& position) = 0;
+	virtual void moveUp(float deltaTime) = 0;
+	virtual glm::vec3  getPosition() const = 0;
+	virtual void setPosition(glm::vec3& position) = 0;
 	// virtual void getSize() = 0;
 	// virtual void setSize(Size) = 0;
 
