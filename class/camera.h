@@ -3,31 +3,37 @@
 
 
 #include <cmath>
-#include "../include/glm/glm/glm.hpp"
-#include "../include/glm/glm/gtc/matrix_transform.hpp"
-#include "../include/glm/glm/gtc/type_ptr.hpp"
+#include "gameActor.h"
+
 
 namespace UB
 {
 
 
-class Camera
+class Camera : public GameActor
 {
 public:
+    Camera();
     Camera(glm::vec3 cameraPosition);
 
-    glm::vec3 GetCamPosition() const;
+    glm::vec3 getPosition() const override;
 
-    glm::vec3 GetCamDirection() const;
+    void setPosition(glm::vec3& position) override;
 
-    glm::mat4 GetViewMatrix() const;
+    void moving() override;
+
+    glm::vec3 getDirection() const;
+
+    glm::mat4 getViewMatrix() const;
 
 private:
-    glm::vec3 up;
-    glm::vec3 right;
-    glm::vec3 worldUp;
-    glm::vec3 front;
     glm::vec3 position;
+    glm::vec3 front;
+    glm::vec3 up;
+
+    glm::vec3 direction;
+    //glm::vec3 right;
+    //glm::vec3 worldUp;
 };
 
 }

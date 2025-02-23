@@ -9,10 +9,10 @@ namespace UB
 {
 
 
-class Moving : public iCommand
+class Moving : public ICommand
 {
 public:
-	virtual void execute(GameActor& actor);
+	void execute(GameActor& actor) override;
 
 };
 }

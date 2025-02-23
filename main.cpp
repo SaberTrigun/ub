@@ -1,11 +1,12 @@
 #include <iostream>
 #include "include/glad/glad.h"
 #include "include/GLFW/glfw3.h"
-#include "class/shader.h"
-#include "class/texture.h"
 #include "include/glm/glm/matrix.hpp"
 #include "include/glm/glm/gtc/matrix_transform.hpp"
-//#include "class/camera.h"
+#include "class/shader.h"
+#include "class/texture.h"
+#include "class/camera.h"
+#include "class/inputHandler.h"
 
 using namespace UB;
 
@@ -211,6 +212,13 @@ while(!glfwWindowShouldClose(window))
 
     input(window);
 
+    // GameAcgor* globalCam = new Camera();
+    UB::InputHandler inputHandler;
+    UB::Camera globalCam(glm::vec3(0.0f, 0.0f, 3.0f));
+    UB::ICommand* command = inputHandler.handleInput();
+    if(command){
+        command->execute(globalCam);
+    }
 
     glm::mat4 view = glm::mat4(1.0f);
     //view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));

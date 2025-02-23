@@ -12,7 +12,10 @@ namespace UB
 class InputHandler
 {
 public:
-	static ICommand* handleInput();
+	ICommand* handleInput();
+
+private:
+    ICommand* move;
 
 };
 }

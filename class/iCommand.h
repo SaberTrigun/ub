@@ -5,7 +5,7 @@
 #include "gameActor.h"
 
 
-namespase UB
+namespace UB
 {
 
 
@@ -13,7 +13,7 @@ class ICommand
 {
 public:
 	virtual ~ICommand(){};
-	
+
 	virtual void execute(GameActor& actor) = 0;
 };
 }
