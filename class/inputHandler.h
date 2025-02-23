@@ -3,7 +3,7 @@
 
 
 #include "iCommand.h"
-#include "include/GLFW/glfw3.h"
+#include "../include/GLFW/glfw3.h"
 
 
 namespace UB
@@ -13,6 +13,7 @@ namespace UB
 class InputHandler
 {
 public:
+    InputHandler();
 	ICommand* handleInput(GLFWwindow* window);
 
 private:

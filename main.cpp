@@ -217,7 +217,7 @@ while(!glfwWindowShouldClose(window))
     // GameAcgor* globalCam = new Camera();
     UB::InputHandler inputHandler;
     UB::Camera globalCam(glm::vec3(0.0f, 0.0f, 3.0f));
-    UB::ICommand* command = inputHandler.handleInput();
+    UB::ICommand* command = inputHandler.handleInput(window);
     if(command){
         command->execute(globalCam, deltaTime);
     }

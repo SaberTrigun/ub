@@ -3,7 +3,7 @@ OBJ_DIR = obj
 UB_CLASS_DIR = class
 
 SOURCES = main.cpp glad.c
-SOURCES += $(UB_CLASS_DIR)/shader.cpp $(UB_CLASS_DIR)/camera.cpp $(UB_CLASS_DIR)/texture.cpp  $(UB_CLASS_DIR)/inputHandler.cpp $(UB_CLASS_DIR)/moving.cpp
+SOURCES += $(UB_CLASS_DIR)/shader.cpp $(UB_CLASS_DIR)/camera.cpp $(UB_CLASS_DIR)/texture.cpp  $(UB_CLASS_DIR)/inputHandler.cpp
 SOURCES += $(UB_CLASS_DIR)/simpleBox.cpp
 SOURCES += stb_image/stb_image.cpp
 

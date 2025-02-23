@@ -5,7 +5,7 @@ namespace UB
 {
 
 
-InputHandler::InputHandler() : buttonW(&ButtonW())
+InputHandler::InputHandler()// : buttonW(new ButtonW)
 {
     //buttonW = new ButtonW;
 }
