@@ -12,7 +12,7 @@ namespace UB
 class SimpleBox : public GameActor
 {
 public:
-	void moveUp(float deltaTime) override;
+	void moveForward(float deltaTime) override;
 
 private:
 

@@ -31,10 +31,28 @@ void Camera::setPosition(glm::vec3& position)
 }
 
 
-void Camera::moveUp(float deltaTime)
+void Camera::moveForward(float deltaTime)
 {
     float velocity = 2.5f * deltaTime;
     position += front * velocity;
+}
+
+
+void Camera::moveBackward(float deltaTime)
+{
+
+}
+
+
+void Camera::moveLeft(float deltaTime)
+{
+
+}
+
+
+void Camera::moveRight(float deltaTime)
+{
+
 }
 
 

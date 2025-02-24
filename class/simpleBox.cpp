@@ -5,7 +5,7 @@ namespace UB
 {
 
 
-void SimpleBox::moveUp(float deltaTime)
+void SimpleBox::moveForward(float deltaTime)
 {
 	//do something
 }
