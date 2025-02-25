@@ -17,10 +17,10 @@ public:
 	ICommand* handleInput(GLFWwindow* window);
 
 private:
-    ICommand* buttonW;
-    ICommand* buttonA;
-    ICommand* buttonS;
-    ICommand* buttonD;
+    ICommand* iButtonW;
+    ICommand* iButtonA;
+    ICommand* iButtonS;
+    ICommand* iButtonD;
 
 };
 }

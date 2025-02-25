@@ -13,19 +13,19 @@ void ButtonW::execute(GameActor& actor, float deltaTime)
 
 void ButtonA::execute(GameActor& actor, float deltaTime)
 {
-	actor.moveForward(deltaTime);
+	actor.moveLeft(deltaTime);
 }
 
 
 void ButtonS::execute(GameActor& actor, float deltaTime)
 {
-	actor.moveForward(deltaTime);
+	actor.moveBackward(deltaTime);
 }
 
 
 void ButtonD::execute(GameActor& actor, float deltaTime)
 {
-	actor.moveForward(deltaTime);
+	actor.moveRight(deltaTime);
 }
 
 

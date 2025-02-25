@@ -1,4 +1,5 @@
 #include "inputHandler.h"
+#include "buttons.h"
 
 
 namespace UB
@@ -7,7 +8,10 @@ namespace UB
 
 InputHandler::InputHandler()// : buttonW(new ButtonW)
 {
-    //buttonW = new ButtonW;
+    iButtonW = new ButtonW;
+    iButtonA = new ButtonA;
+    iButtonS = new ButtonS;
+    iButtonD = new ButtonD;
 }
 
 
@@ -17,16 +21,16 @@ ICommand* InputHandler::handleInput(GLFWwindow* window)
     ICommand* pressedButton = nullptr;
 
     if (glfwGetKey(window, GLFW_KEY_W)){
-        pressedButton = buttonW;
+        pressedButton = iButtonW;
     }
     else if (glfwGetKey(window, GLFW_KEY_S)) {
-        pressedButton = buttonS;
+        pressedButton = iButtonS;
     }
     else if (glfwGetKey(window, GLFW_KEY_A)) {
-        pressedButton = buttonA;
+        pressedButton = iButtonA;
     }
     else if (glfwGetKey(window, GLFW_KEY_D)) {
-        pressedButton = buttonD;
+        pressedButton = iButtonD;
     }
 
     return pressedButton;

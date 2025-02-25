@@ -13,9 +13,9 @@ using namespace UB;
 int gHeightScr = 1400;
 int gWidthScr  = 800;
 
-//glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
-//glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-//glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
+glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 { glViewport(0, 0, width, height); }
@@ -202,7 +202,7 @@ float lastFrame = 0.0f;
 
 UB::InputHandler inputHandler;
 UB::Camera globalCam(glm::vec3(0.0f, 0.0f, 3.0f));
-UB::ICommand* command = inputHandler.handleInput(window);
+UB::ICommand* command = nullptr;
 
 while(!glfwWindowShouldClose(window))
 {
@@ -215,6 +215,7 @@ while(!glfwWindowShouldClose(window))
 
     //input(window);
 
+    command = inputHandler.handleInput(window);
     if(command){
         command->execute(globalCam, deltaTime);
     }
