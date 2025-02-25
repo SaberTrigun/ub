@@ -13,9 +13,9 @@ using namespace UB;
 int gHeightScr = 1400;
 int gWidthScr  = 800;
 
-glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
+//glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
+//glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+//glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 { glViewport(0, 0, width, height); }
@@ -196,11 +196,13 @@ glm::vec3 cubePositions[] = {
 };
 
 
-glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1400.0f / 800.0f, 0.1f, 100.0f);
-shaderProg.setMat4("projection", projection);
 
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
+
+UB::InputHandler inputHandler;
+UB::Camera globalCam(glm::vec3(0.0f, 0.0f, 3.0f));
+UB::ICommand* command = inputHandler.handleInput(window);
 
 while(!glfwWindowShouldClose(window))
 {
@@ -211,22 +213,18 @@ while(!glfwWindowShouldClose(window))
     deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
 
-    input(window);
+    //input(window);
 
-
-    // GameAcgor* globalCam = new Camera();
-    UB::InputHandler inputHandler;
-    UB::Camera globalCam(glm::vec3(0.0f, 0.0f, 3.0f));
-    UB::ICommand* command = inputHandler.handleInput(window);
     if(command){
         command->execute(globalCam, deltaTime);
     }
 
-    glm::mat4 view = glm::mat4(1.0f);
+	glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1400.0f / 800.0f, 0.1f, 100.0f);
+	shaderProg.setMat4("projection", projection);
+    //glm::mat4 view = glm::mat4(1.0f);
     //view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-    view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-
-
+    //view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+    glm::mat4 view = globalCam.getViewMatrix();
     shaderProg.setMat4("view", view);
 
     shaderProg.useProgram();

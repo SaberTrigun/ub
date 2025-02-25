@@ -28,18 +28,21 @@ public:
 
     void moveRight(float deltaTime) override;
 
-    glm::vec3 getDirection() const;
-
     glm::mat4 getViewMatrix() const;
+
+private:
+    void updateCameraVectors();
 
 private:
     glm::vec3 position;
     glm::vec3 front;
     glm::vec3 up;
 
-    glm::vec3 direction;
-    //glm::vec3 right;
-    //glm::vec3 worldUp;
+    glm::vec3 worldUp;
+    glm::vec3 right;
+
+    float movementSpeed;
+
 };
 
 }
